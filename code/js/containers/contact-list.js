@@ -4,13 +4,21 @@ import {connect} from 'react-redux'; //  получает в качестве pr
 									//подключи React компонент к Redux store.
 
 class ContactList extends Component {
+
+	showList(){
+		return this.props.contacts.map((contact) =>{
+			return(
+				<li key={contact.id}>{contact.name}</li>
+			)
+		});
+	}
+
 	render() {
 		return(
 
-			<ol>
-				<li>1</li>
-				<li>2</li>
-				<li>3</li>
+			<ol>				
+				<li key={contact.id}>{contact.name}</li>
+				<li onClick={() => this.props.select (contact)} key={contact.id}>{contact.name}</li>
 			</ol>
 
 		);
@@ -23,4 +31,8 @@ function mapStateToProps (state) { //ф-ция которая будет сле�
 	}
 }
 
-export default connect(mapStateToProps)(ContactList); 
+function matchDispatchToProps (dispatch) {
+	return bindActionCreators({select: select}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(ContactList);
